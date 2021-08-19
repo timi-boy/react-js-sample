@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import './Home.css';
+
 
 class Home extends Component {
   render() {
     return (
-      <div>
-        <h1>This is Home page.</h1>
-        <h2>built using React.js + React Router v4 + Express.js</h2>
-        <h2>Now, It is Server-side rendering !</h2>
+      <div className="home">
+        <Link className="link" to="/authorization"><div className="home__link">Log In</div></Link>
+        <Link className="link" to="/registracion"><div className="home__link">Registracion</div></Link>
       </div>
     );
   }

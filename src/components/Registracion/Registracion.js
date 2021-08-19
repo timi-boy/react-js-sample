@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
+
 import './Registracion.css';
 
 class Registrations extends Component {
@@ -11,65 +13,38 @@ class Registrations extends Component {
     this.passConfChange = this.passConfChange.bind(this);
     this.state = {
       name: '',
+      aname: '',
       email: '',
+      aemail: '',
       password: '',
+      apassword: '',
       password_confirmation: '',
+      message:'',
+      status: false,
+      type:'',
+      redirect: false,
     };
-  
   };
 
 
   nameChange(e) {
     this.setState({name: e.target.value});
-
-    //if (e.target.value.length > 1) {
-    //this.setState({validName: true});
-    //} else {
-    //this.setState({validName: false});
-    //}
-
-    //console.log(this.state);
   }
 
   emailChange(e) {
     this.setState({email: e.target.value});
-
-    //if (e.target.value.length > 1) {
-    //  this.setState({validEmail: true});
-    //  } else {
-    //  this.setState({validEmail: false});
-    //  }
-    //console.log(this.state);
-
   }
   
   passChange(e) {
     this.setState({password: e.target.value});
-    //if (e.target.value.length > 1) {
-    //  this.setState({validPass: true});
-    //  } else {
-    //  this.setState({validPass: false});
-    //  }
-    //console.log(this.state);
   }
 
   passConfChange(e) {
     this.setState({password_confirmation: e.target.value});
-    //console.log(this.state);
-    //if (e.target.value.length > 1) {
-    //  this.setState({validConfPass: true});
-    //  } else {
-    //  this.setState({validConfPass: false});
-    //  }
   }
 
   async formSubmit(e) {
     e.preventDefault();
-
-    //if (this.state.validName === true &&
-    //    this.state.validEmail === true && 
-    //    this.state.validPass === true && 
-    //    this.state.validConfPass === true) {
 
     const url = 'https://internsapi.public.osora.ru/api/auth/signup';
     console.log(this.state);
@@ -86,35 +61,50 @@ class Registrations extends Component {
     });
 
     let result = await request.json();
-    //console.log(result);
-    //console.log(result.errors.name[0]);
-    //if (result.status === false) {
-      //this.setState({name: result.errors.name[0]});
-      //this.setState({email: result.errors.email[0]});
-      //this.setState({password: result.errors.password[0]});
-      result.errors.name === undefined ? this.state.name : this.setState({name: result.errors.name[0]});
-      result.errors.email === undefined ? this.state.email : this.setState({email: result.errors.email[0]});
-      result.errors.password === undefined ? this.state.password : this.setState({password: result.errors.password[0]});
-    //}
+    console.log(result);
+    if (result.status === true) {
+      console.log(result.data.message);
+      this.setState({
+        status: true,
+        message: result.data.message,
+        type: result.type,
+        redirect: true,
+      })
+    } else if (result.status === false && result.errors.name !== undefined) {
+      this.setState({aname: result.errors.name, type: result.type,});
+    };
+    if (result.status === false && result.errors.email !== undefined) {
+      this.setState({aemail: result.errors.email, type: result.type,});
+    };
+    if (result.status === false && result.errors.password !== undefined) {
+      this.setState({apassword: result.errors.password, type: result.type,});
+    };
   }
 
-  
-
   render() {
+    const { redirect } = this.state;
+ 
+    if (redirect) {
+      return (
+        <Switch>
+          <Redirect exact to='/authorization'/>;
+        </Switch>
+      )
+    };
+
     return (
       <div className="registrations">
+        {this.state.status === true ? <span>{this.state.message}</span> : <span>{this.state.type}</span>}
         <form id="formElem" className='autor-form' onSubmit={this.formSubmit}>
           <label>
             Name: <input
             type="text"
             name="name"
             value={this.state.name}
-            
             onChange={this.nameChange}
             />
           </label>
-
-        
+          {this.state.status !== true ? <span>{this.state.aname}</span> : ''}
           <label>
             e-mail: <input 
             type="email"
@@ -123,7 +113,7 @@ class Registrations extends Component {
             onChange={this.emailChange}
             />
           </label>
-          {this.state.validEmail === false ? <span>Введитe e-mail, поле не может быть пустым</span> : ''}
+          {this.state.status !== true ? <span>{this.state.aemail}</span> : ''}
           <label>
             Password: <input
             type="password"
@@ -132,7 +122,7 @@ class Registrations extends Component {
             onChange={this.passChange}
             />
           </label>
-          {this.state.validPass === false ? <span>Введитe пароль, поле не может быть пустым</span> : ''}
+          {this.state.status !== true ? <span>{this.state.apassword}</span> : ''}
           <label>
             Confirm Password: <input
             type="password"
@@ -141,8 +131,8 @@ class Registrations extends Component {
             onChange={this.passConfChange}
             />
           </label>
-          {this.state.validConfPass === false ? <span>Повторите пароль, поле не может быть пустым</span> : ''}
           <input type="submit" value="Submit"/>
+          {/*<span>{this.answer.status}</span>*/}
         </form>
       </div>
     )

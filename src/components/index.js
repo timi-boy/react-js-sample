@@ -1,15 +1,19 @@
 import NavBar from './NavBar/NavBar';
 import Container from './Container/Container';
-import About from './About/About';
+import Select from './Select/Select';
 import Contacts from './Contacts/Contacts';
 import Home from './Home/Home';
 import NotFound from './NotFound/NotFound';
+import Authorization from './Authorization/Authorization';
+import Registracion from './Registracion/Registracion';
 
 export {
     NavBar,
     Container,
-    About,
+    Select,
     Contacts,
     Home,
-    NotFound
+    NotFound,
+    Registracion,
+    Authorization,
 };

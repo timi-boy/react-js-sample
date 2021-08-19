@@ -1,0 +1,23 @@
+.home {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.home__link {
+  margin: 20px;
+  border: 2px solid #dc143c;
+  padding: 20px;
+  border-radius: 20px;
+
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #dc143c;
+  font-family: 'saw';
+  font-size: 25px;
+
+}
