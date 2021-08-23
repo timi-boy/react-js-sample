@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './Authorization.css';
 import { Switch, Redirect } from 'react-router-dom';
+import './Authorization.css';
 
 class Authorization extends Component {
   constructor(props){
