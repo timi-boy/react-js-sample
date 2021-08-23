@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import './Game.css';
 
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.clickClick = this.clickClick.bind(this);
+    this.sendOption = this.sendOption.bind(this);
+    this.addTimer = this.addTimer.bind(this);
 
     //this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
@@ -18,10 +20,16 @@ class Game extends Component {
     };
   }
 
-  clickClick(event) {
-    console.log('cool');
-    console.log(this.state);
-  }
+  addTimer() {
+    let timer = setInterval( () => {
+      let timeLeft = this.state.time - 1;
+      if (timeLeft === 0) {
+        clearInterval(timer);
+      };
+      this.setState({time: timeLeft});
+      //console.log(timeLeft);
+    }, 1000);
+  };
 
   componentDidMount() {
     const dataGame = JSON.parse(localStorage.getItem('dataGame'));
@@ -33,29 +41,52 @@ class Game extends Component {
       time: dataGame.data.time,
       token: result.data.access_token,
     });
-      //console.log(dataGame.data);
-    //console.log(this.state);
-    let timer = setInterval( () => {
-      var timeLeft = this.state.time - 1;
-      if (timeLeft === 0) {
-        clearInterval(timer);
-      };
-      this.setState({timeLeft: timeLeft, time: timer});
-    }, 1000); 
-    //return this.setState({ time: timer});
+    this.addTimer();
   }
 
+  async sendOption(e) {
+    e.preventDefault();
+    this.setState({value: e.target.value});
+
+    const url = 'https://internsapi.public.osora.ru/api/game/play';
+    console.log(this.state);
+
+    let formData = new FormData();
+    let bearer = `Bearer ${this.state.token}`;
+
+    formData.append('answer', this.state.value);
+    formData.append('type', '2');
+    formData.append('type_hard', '2');
+
+    let request = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': bearer,
+      },
+      body: formData,
+    });
+
+    let dataGame = await request.json();
+    console.log(dataGame);
+  };
+
   render() {
-    const { options, points, time, question, timeLeft } = this.state;
+    const { options, points, question, time } = this.state;
     return (
       <div className='game'>
         <p className="game__score">score: {points}</p>
-        <p className="game__timer">timer: {timeLeft}</p>
+        <p className="game__timer">timer: {time}</p>
         <p className="game__timer">question: {question}</p>
         <div className="game__list">
-        { options.map((item) => <p className='game__item' key={item.toString()}>{item}</p>) }
+        { options.map((item) => <input 
+        type='button'
+        className='game__item'
+        key={item.toString()}
+        onClick={this.sendOption}
+        value={item}
+        />) }
         </div>
-        <button onClick={this.clickClick}>click</button>
+
       </div>
     );
   }
