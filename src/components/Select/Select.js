@@ -16,6 +16,7 @@ class Select extends Component {
   }
 
   handleChange(event) {
+    event.preventDefault();
     this.setState({value: event.target.value});
   }
 
@@ -47,10 +48,10 @@ class Select extends Component {
     let dataGame = await request.json();
     console.log(dataGame);
     if (dataGame.status === true) {
+      localStorage.setItem('dataGame', JSON.stringify(dataGame));
       this.setState({
         redirect: true,
       })
-      localStorage.setItem('dataGame', JSON.stringify(dataGame));
     };
 
   }

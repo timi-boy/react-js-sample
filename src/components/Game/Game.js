@@ -14,7 +14,7 @@ class Game extends Component {
       question: '',
       time: 0,
       timeLeft: 0,
-      value: '',
+      value: null,
       token: '',
       redirect: false,
     };
@@ -42,11 +42,17 @@ class Game extends Component {
       token: result.data.access_token,
     });
     this.addTimer();
+    console.log(this.state);
+    console.log(dataGame);
+    console.log(result);
+
   }
 
   async sendOption(e) {
     e.preventDefault();
     this.setState({value: e.target.value});
+
+    console.log(this.state.value);
 
     const url = 'https://internsapi.public.osora.ru/api/game/play';
     console.log(this.state);

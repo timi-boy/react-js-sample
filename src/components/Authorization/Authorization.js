@@ -48,12 +48,12 @@ class Authorization extends Component {
     console.log(result);
 
     if (result.status === true) {
+      localStorage.setItem('result', JSON.stringify(result));
       this.setState({
         status: result.status,
         type: result.type,
         redirect: true,
       })
-      localStorage.setItem('result', JSON.stringify(result));
       console.log(this.state);
     };
     if (result.status === false && result.errors !== undefined) {
