@@ -16,6 +16,7 @@ class Game extends Component {
       timeLeft: 0,
       value: null,
       token: '',
+      type_hard: null,
       redirect: false,
     };
   }
@@ -31,38 +32,39 @@ class Game extends Component {
     }, 1000);
   };
 
-  componentDidMount() {
-    const dataGame = JSON.parse(localStorage.getItem('dataGame'));
-    const result = JSON.parse(localStorage.getItem('result'));
+  async componentDidMount() {
+    const dataGame = await JSON.parse(localStorage.getItem('dataGame'));
+    const result = await JSON.parse(localStorage.getItem('result'));
     this.setState({
       options: dataGame.data.options,
       points: dataGame.data.points,
       question: dataGame.data.question,
       time: dataGame.data.time,
+      type_hard: dataGame.type_hard,
       token: result.data.access_token,
     });
     this.addTimer();
     console.log(this.state);
     console.log(dataGame);
     console.log(result);
-
   }
 
   async sendOption(e) {
     e.preventDefault();
+    //console.log(e.target.value);
     this.setState({value: e.target.value});
-
-    console.log(this.state.value);
+    
+    //console.log(this.state.value);
 
     const url = 'https://internsapi.public.osora.ru/api/game/play';
-    console.log(this.state);
+    //console.log(this.state);
 
     let formData = new FormData();
     let bearer = `Bearer ${this.state.token}`;
 
-    formData.append('answer', this.state.value);
+    formData.append('answer', e.target.value);
     formData.append('type', '2');
-    formData.append('type_hard', '2');
+    formData.append('type_hard', this.state.type_hard);
 
     let request = await fetch(url, {
       method: 'POST',
@@ -73,6 +75,15 @@ class Game extends Component {
     });
 
     let dataGame = await request.json();
+    this.setState({
+      options: dataGame.data.options,
+      points: dataGame.data.points,
+      question: dataGame.data.question,
+      time: dataGame.data.time,
+      type_hard: dataGame.type_hard,
+      //token: result.data.access_token,
+    });
+
     console.log(dataGame);
   };
 

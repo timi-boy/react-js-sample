@@ -18,11 +18,13 @@ class Select extends Component {
   handleChange(event) {
     event.preventDefault();
     this.setState({value: event.target.value});
+    console.log(event.target.value);
+
   }
 
-  componentDidMount() {
-    const result = JSON.parse(localStorage.getItem('result'));
-    this.setState({token: result.data.access_token})
+  async componentDidMount() {
+    const result = await JSON.parse(localStorage.getItem('result'));
+    this.setState({token: result.data.access_token});
   }
 
   async handleSubmit(event) {
@@ -47,7 +49,9 @@ class Select extends Component {
 
     let dataGame = await request.json();
     console.log(dataGame);
+    
     if (dataGame.status === true) {
+      Object.assign(dataGame, {type_hard: this.state.value});
       localStorage.setItem('dataGame', JSON.stringify(dataGame));
       this.setState({
         redirect: true,
