@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-//import { Switch, Redirect } from 'react-router-dom';
-
+import './Result.css';
 
 class Result extends Component {
   constructor(props) {
@@ -21,7 +20,6 @@ class Result extends Component {
       questions: dataGame.data.questions,
     });
     console.log(this.state);
-
   };
   
   render() {
@@ -30,20 +28,20 @@ class Result extends Component {
     console.log(questions);
 
     return (
-      <div>
-        <h1>game over</h1>
-        <h2>score: {points}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Correct</th>
+      <div className='result'>
+        <h1 className='result__title'>game over</h1>
+        <h2 className='result__score'>score: {points}</h2>
+        <table className='result__table'>
+          <thead className='table__head'>
+            <tr className='table__string'>
+              <th className='table__cell'>Question</th>
+              <th className='table__cell'>Answer</th>
+              <th className='table__cell'>Correct</th>
             </tr>
           </thead>
           <tbody>
           { questions.map((item) => 
-            <tr key={item.id.toString()}>
+            <tr className='table__string' key={item.id.toString()}>
               <td>{item.question}</td>
               <td>{item.current_answer}</td>
               <td>{item.answer}</td>
@@ -51,15 +49,6 @@ class Result extends Component {
           )}
           </tbody>
         </table>
-        {/*</div>{ questions.map((item) => 
-        //  <input 
-        //    type='button'
-        //    className='game__item'
-        //    key={item.id.toString()}
-
-        //    value={item.id} 
-        //  />)
-        //} */}
       </div>
     )
   }

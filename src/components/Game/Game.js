@@ -106,9 +106,9 @@ class Game extends Component {
 
     return (
       <div className='game'>
-        <p className="game__score">score: {points}</p>
-        <p className="game__timer">timer: {time}</p>
-        <p className="game__timer">question: {question}</p>
+        <p className="game__text">score: {points}</p>
+        <p className="game__text">timer: {time}</p>
+        <p className="game__text">question: {question}</p>
         <div className="game__list">
         { options !== undefined ? options.map((item) => <input 
         type='button'

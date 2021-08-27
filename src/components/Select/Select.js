@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
+import './Select.css';
+
 
 
 class Select extends Component {
@@ -72,14 +74,14 @@ class Select extends Component {
     };
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <select value={this.state.value} onChange={this.handleChange}>
-            <option disabled value=''>Выберите сложность</option>
-            <option value='1'>Easy / Легко</option>
-            <option value='2'>Hard / Тяжело</option>
+      <div className='select-box'>
+        <form className='select-box__form' onSubmit={this.handleSubmit}>
+          <select className='select__select' value={this.state.value} onChange={this.handleChange}>
+            <option className='select__option' disabled value=''>Выберите сложность</option>
+            <option className='select__option' value='1'>Easy / Легко</option>
+            <option className='select__option' value='2'>Hard / Тяжело</option>
           </select>
-          <input type="submit" value="Отправить" />
+          <input className='select__button' type="submit" value="Отправить" />
         </form>
       </div>
     );

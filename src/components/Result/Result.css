@@ -1,0 +1,44 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.result__title {
+  margin-top: 30px;
+  font-family: 'saw';
+  font-size: 50px;
+  color: #dc143c;
+  text-transform: uppercase;
+}
+
+.result__score {
+  text-transform: uppercase;
+  color: #dc143c;
+}
+
+.result__table {
+  border-spacing: 20px 10px;
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 1px solid #333;
+  padding: 10px;
+  font-weight: 400;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  font-weight: 300;
+}
+
+.table__string {
+
+}
+
+.table__cell {
+
+}

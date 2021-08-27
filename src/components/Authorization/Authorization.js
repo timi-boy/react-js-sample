@@ -80,9 +80,11 @@ class Authorization extends Component {
     return (
       <div className="authorization">
         {this.state.status === false ? <span>{this.state.type}</span> : ''}
-        <form className='autor-form' onSubmit={this.formSubmit}>
-          <label>
-            e-mail: <input 
+        <form className='authorization__form' onSubmit={this.formSubmit}>
+          <label className='authorization__label'>
+            <span className='authorization__caption'>e-mail:</span>
+            <input 
+            className='authorization__input'
             type="email"
             name="name"
             value={this.state.email}
@@ -90,8 +92,10 @@ class Authorization extends Component {
             />
           </label>
           {status === false ? <span>{this.state.aemail}</span> : ''}
-          <label>
-            Password: <input
+          <label className='authorization__label'>
+            <span className='authorization__caption'>Пароль:</span> 
+            <input
+            className='authorization__input'
             type="password"
             name="name"
             value={this.state.password}
@@ -99,7 +103,7 @@ class Authorization extends Component {
             />
           </label>
           {status === false ? <span>{this.state.apassword}</span> : ''}
-          <input type="submit" value="Submit" />
+          <input className='authorization__button' type="submit" value="Отправить" />
         </form>
       </div>
     );

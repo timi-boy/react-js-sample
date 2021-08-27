@@ -95,9 +95,11 @@ class Registrations extends Component {
     return (
       <div className="registrations">
         {this.state.status === true ? <span>{this.state.message}</span> : <span>{this.state.type}</span>}
-        <form id="formElem" className='autor-form' onSubmit={this.formSubmit}>
-          <label>
-            Name: <input
+        <form id="formElem" className='registrations__form' onSubmit={this.formSubmit}>
+          <label className='registrations__label'>
+            <span className='registrations__caption'>Имя:</span> 
+            <input
+            className='registrations__input'
             type="text"
             name="name"
             value={this.state.name}
@@ -105,34 +107,39 @@ class Registrations extends Component {
             />
           </label>
           {this.state.status !== true ? <span>{this.state.aname}</span> : ''}
-          <label>
-            e-mail: <input 
-            type="email"
-            name="name"
-            value={this.state.email}
-            onChange={this.emailChange}
+          <label className='registrations__label'>
+            <span className='registrations__caption'>e-mail:</span>
+            <input
+              className='registrations__input'
+              type="email"
+              name="name"
+              value={this.state.email}
+              onChange={this.emailChange}
             />
           </label>
           {this.state.status !== true ? <span>{this.state.aemail}</span> : ''}
-          <label>
-            Password: <input
-            type="password"
-            name="name"
-            value={this.state.password}
-            onChange={this.passChange}
+          <label className='registrations__label'>
+            <span className='registrations__caption'>Пароль:</span> 
+            <input
+              className='registrations__input'
+              type="password"
+              name="name"
+              value={this.state.password}
+              onChange={this.passChange}
             />
           </label>
           {this.state.status !== true ? <span>{this.state.apassword}</span> : ''}
-          <label>
-            Confirm Password: <input
-            type="password"
-            name="name"
-            value={this.state.password_confirmation}
-            onChange={this.passConfChange}
+          <label className='registrations__label'>
+            <span className='registrations__caption'>Повторите пароль:</span> 
+            <input
+              className='registrations__input'
+              type="password"
+              name="name"
+              value={this.state.password_confirmation}
+              onChange={this.passConfChange}
             />
           </label>
-          <input type="submit" value="Submit"/>
-          {/*<span>{this.answer.status}</span>*/}
+          <input className='registrations__button' type="submit" value="Отправить"/>
         </form>
       </div>
     )
