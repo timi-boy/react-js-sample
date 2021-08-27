@@ -6,6 +6,7 @@ import Home from './Home/Home';
 import NotFound from './NotFound/NotFound';
 import Authorization from './Authorization/Authorization';
 import Registracion from './Registracion/Registracion';
+import Result from './Result/Result';
 
 export {
     NavBar,
@@ -16,4 +17,5 @@ export {
     NotFound,
     Registracion,
     Authorization,
+    Result,
 };

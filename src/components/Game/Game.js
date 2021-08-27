@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
 import './Game.css';
 
 class Game extends Component {
@@ -13,9 +14,10 @@ class Game extends Component {
       timeLeft: 0,
       value: null,
       token: '',
-      type_hard: null,
+      //type_hard: null,
       redirect: false,
     };
+    this.timer = null;
   }
 
   async componentDidMount() {
@@ -26,21 +28,16 @@ class Game extends Component {
       points: dataGame.data.points,
       question: dataGame.data.question,
       time: dataGame.data.time,
-      type_hard: dataGame.type_hard,
+      //type_hard: dataGame.type_hard,
       token: result.data.access_token,
     });
-    let timer = setInterval( () => {
+    this.timer = setInterval( () => {
       let timeLeft = this.state.time - 1;
       if (timeLeft === 0) {
-        clearInterval(timer);
+        clearInterval(this.timer);
       };
       this.setState({time: timeLeft});
-      //console.log(timeLeft);
     }, 1000);
-    //this.addTimer();
-    //console.log(this.state);
-    //console.log(dataGame);
-    //console.log(result);
   }
 
   async sendOption(e) {
@@ -61,44 +58,65 @@ class Game extends Component {
     });
 
     let dataGame = await request.json();
+    console.log(dataGame);
+
     if (dataGame.status === true) {
-      this.setState({
-        options: dataGame.data.options,
-        points: dataGame.data.points,
-        question: dataGame.data.question,
-        time: dataGame.data.time,
-        type_hard: dataGame.type_hard,
-        //token: result.data.access_token,
+      this.setState((prevState) => {
+        //console.log(prevState); 
+        return { 
+          options: dataGame.data.options,
+          points: dataGame.data.points,
+          question: dataGame.data.question,
+          time: dataGame.data.time,
+        }
       });
-      //this.addTimer();
-      let timer = setInterval( () => {
+      clearInterval(this.timer);
+      this.timer = setInterval( () => {
         let timeLeft = this.state.time - 1;
         if (timeLeft === 0) {
-          clearInterval(timer);
+          clearInterval(this.timer);
         };
-        this.setState({time: timeLeft});
+        this.setState((prevState) => {
+          return {time: timeLeft}
+        });
         //console.log(timeLeft);
       }, 1000);
     }
 
-    console.log(dataGame);
+    if (dataGame.status === true && dataGame.data.questions !== undefined) {
+      clearInterval(this.timer);
+      console.log(dataGame);
+      localStorage.setItem('dataGame', JSON.stringify(dataGame));
+      this.setState({
+        redirect: true,
+      })
+    }
   };
 
   render() {
-    const { options, points, question, time } = this.state;
+    const { redirect, options, points, question, time } = this.state;
+
+    if (redirect) {
+      return (
+        <Switch>
+          <Redirect exact to='/result'/>;
+        </Switch>
+      )
+    };
+
     return (
       <div className='game'>
         <p className="game__score">score: {points}</p>
         <p className="game__timer">timer: {time}</p>
         <p className="game__timer">question: {question}</p>
         <div className="game__list">
-        { options.map((item) => <input 
+        { options !== undefined ? options.map((item) => <input 
         type='button'
         className='game__item'
         key={item.toString()}
         onClick={this.sendOption}
         value={item}
-        />) }
+        />) : 'null'}
         </div>
 
       </div>

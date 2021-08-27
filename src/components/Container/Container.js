@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom'
 
-import { Home, Select, Game, NotFound, Authorization, Registracion } from '../';
+import { Home, Select, Game, NotFound, Authorization, Registracion, Result } from '../';
 
 class Container extends Component {
   render() {
@@ -11,6 +11,7 @@ class Container extends Component {
           <Route exact path='/' component={Home}/>
           <Route path='/select' component={Select}/>
           <Route path='/game' component={Game}/>
+          <Route path='/result' component={Result}/>
           <Route path='/authorization' component={Authorization}/>
           <Route path='/registracion' component={Registracion}/>
           <Route component={NotFound}/>
