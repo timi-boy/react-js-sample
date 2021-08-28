@@ -54,5 +54,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-app": "^3.0.2",
     "babel-preset-stage-0": "^6.24.1"
-  }
+  },
+
+  "homepage" : "https://timi-boy.github.io/react-js-sample/"
 }
