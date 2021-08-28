@@ -31,6 +31,7 @@
   "dependencies": {
     "compression": "^1.7.0",
     "express": "^4.15.4",
+    "gh-pages": "^3.2.3",
     "morgan": "^1.8.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -44,7 +45,9 @@
     "build": "react-scripts build",
     "test": "react-scripts build && babel-node server",
     "server": "babel-node server",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -55,6 +58,5 @@
     "babel-preset-react-app": "^3.0.2",
     "babel-preset-stage-0": "^6.24.1"
   },
-
-  "homepage" : "https://timi-boy.github.io/react-js-sample/"
+  "homepage": "https://timi-boy.github.io/react-js-sample/"
 }
