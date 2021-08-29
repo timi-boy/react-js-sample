@@ -8,7 +8,7 @@ class Home extends Component {
     return (
       <div className="home">
         <Link className="link" to="/authorization"><div className="home__link">Log In</div></Link>
-        <Link className="link" to="/registracion"><div className="home__link">Registracion</div></Link>
+        <Link className="link" to="/Registration"><div className="home__link">Registration</div></Link>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import './Registracion.css';
+import './Registration.css';
 
 class Registrations extends Component {
   constructor(props){
