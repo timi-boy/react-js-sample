@@ -23,14 +23,26 @@ class Game extends Component {
   async componentDidMount() {
     const dataGame = await JSON.parse(localStorage.getItem('dataGame'));
     const result = await JSON.parse(localStorage.getItem('result'));
-    this.setState({
-      options: dataGame.data.options,
-      points: dataGame.data.points,
-      question: dataGame.data.question,
-      time: dataGame.data.time,
-      //type_hard: dataGame.type_hard,
-      token: result.data.access_token,
+    //this.setState({
+    //  options: dataGame.data.options,
+    //  points: dataGame.data.points,
+    //  question: dataGame.data.question,
+    //  time: dataGame.data.time,
+
+    //  token: result.data.access_token,
+    //});
+    this.setState((prevState) => {
+      //console.log(prevState); 
+      return { 
+        options: dataGame.data.options,
+        points: dataGame.data.points,
+        question: dataGame.data.question,
+        time: dataGame.data.time,
+  
+        token: result.data.access_token,
+      }
     });
+
     this.timer = setInterval( () => {
       let timeLeft = this.state.time - 1;
       if (timeLeft === 0) {
@@ -91,7 +103,7 @@ class Game extends Component {
         redirect: true,
       })
     }
-  };
+  }
 
   render() {
     const { redirect, options, points, question, time } = this.state;

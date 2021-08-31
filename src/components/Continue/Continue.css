@@ -1,0 +1,20 @@
+.continue__title {
+  font-family: 'saw';
+  font-size: 25px;
+  color: #dc143c;
+  text-transform: uppercase;
+  margin-top: 40px;
+}
+
+.continue__button {
+  margin: 20px;
+  border: 2px solid #dc143c;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+  color: #dc143c;
+  font-family: 'saw';
+  font-size: 20px;
+}

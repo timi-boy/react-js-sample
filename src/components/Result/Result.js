@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
 import './Result.css';
 
 class Result extends Component {
   constructor(props) {
     super(props);
+    this.startGame = this.startGame.bind(this);
     this.state = {
       points: 0,
       time: 0,
@@ -21,11 +23,22 @@ class Result extends Component {
     });
     console.log(this.state);
   };
+
+  startGame() {
+    this.setState({redirect: true});
+    localStorage.clear();
+  }
   
   render() {
 
-    const { points, questions } = this.state;
-    console.log(questions);
+    const { points, questions, redirect} = this.state;
+    if (redirect) {
+      return (
+        <Switch>
+            <Redirect exact to='/'/>;
+        </Switch>
+      )
+    }
 
     return (
       <div className='result'>
@@ -49,6 +62,7 @@ class Result extends Component {
           )}
           </tbody>
         </table>
+        <button className="result__newGame" onClick={this.startGame}>Новая Игра</button>
       </div>
     )
   }

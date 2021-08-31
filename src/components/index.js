@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import Authorization from './Authorization/Authorization';
 import Registration from './Registration/Registration';
 import Result from './Result/Result';
+import Continue from './Continue/Continue';
 
 export {
     Container,
@@ -14,4 +15,5 @@ export {
     Registration,
     Authorization,
     Result,
+    Continue,
 };
